@@ -7,7 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import net.pedaling.ninjagotv.R;
+import net.pedaling.ninjagotv.Utils;
 import net.pedaling.ninjagotv.data.model.Video;
 import net.pedaling.ninjagotv.presenter.MainPresenter;
 
@@ -48,6 +51,13 @@ public class VideoBuilder extends Builder {
 
         viewHolder.titleTV.setText(mVideo.title);
         viewHolder.minuteTV.setText(mVideo.minute);
+        int size = (int) Utils.getDP(mContext, 48);
+        Picasso.with(mContext)
+                .load(mVideo.thumbnailUrl)
+                .error(R.mipmap.ic_launcher)
+                .centerCrop()
+                .resize(size, size)
+                .into(viewHolder.thumbnailIV);
 
         mView.setOnClickListener(new View.OnClickListener() {
             @Override
