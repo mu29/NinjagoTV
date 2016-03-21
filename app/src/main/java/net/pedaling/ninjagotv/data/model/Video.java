@@ -16,9 +16,17 @@ public class Video implements Parcelable, Adaptable {
     public String url;
     public String minute;
     public String thumbnailUrl;
-    
+
+    public Video(int id, String title, String url, String minute, String thumbnailUrl) {
+        this.id = id;
+        this.title = title;
+        this.url = url;
+        this.minute = minute;
+        this.thumbnailUrl = thumbnailUrl;
+    }
+
     public Video(Parcel in) {
-        
+        readFromParcel(in);
     }
     
     @Override
