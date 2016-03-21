@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import net.pedaling.ninjagotv.R;
 import net.pedaling.ninjagotv.data.model.Video;
+import net.pedaling.ninjagotv.presenter.MainPresenter;
 
 /**
  * Created by InJung on 2016. 3. 21..
@@ -16,6 +17,7 @@ import net.pedaling.ninjagotv.data.model.Video;
 public class VideoBuilder extends Builder {
 
     private Video mVideo;
+    private MainPresenter.VideoItemListener mListener;
 
     public static VideoBuilder set(Context context, View convertView, ViewGroup parent, Object... params) {
         return new VideoBuilder(context, convertView, parent, params);
@@ -24,6 +26,7 @@ public class VideoBuilder extends Builder {
     public VideoBuilder(Context context, View convertView, ViewGroup parent, Object... params) {
         super(context, convertView, parent);
         mVideo = (Video) params[0];
+        mListener = (MainPresenter.VideoItemListener) params[1];
     }
 
     @Override
@@ -43,8 +46,16 @@ public class VideoBuilder extends Builder {
             viewHolder = (ViewHolder) mView.getTag();
         }
 
-        viewHolder.titleTV.setTag(mVideo.title);
-        viewHolder.minuteTV.setTag(mVideo.minute);
+        viewHolder.titleTV.setText(mVideo.title);
+        viewHolder.minuteTV.setText(mVideo.minute);
+
+        mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mListener.onAction(MainPresenter.VideoItemListener.ACTION_OPEN_VIDEO, mVideo);
+            }
+        });
+
 
         return mView;
     }
