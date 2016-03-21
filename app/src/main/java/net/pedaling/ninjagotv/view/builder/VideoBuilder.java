@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import net.pedaling.ninjagotv.data.local.PreferenceHelper;
 import net.pedaling.ninjagotv.util.CircleTransform;
 import net.pedaling.ninjagotv.R;
 import net.pedaling.ninjagotv.util.NinjaGoUtils;
@@ -52,7 +53,8 @@ public class VideoBuilder extends Builder {
 
         viewHolder.titleTV.setText(mVideo.title);
         viewHolder.minuteTV.setText(mVideo.minute);
-        int size = (int) NinjaGoUtils.getDP(mContext, 48);
+        boolean read = PreferenceHelper.getInstance(mContext).getString(mVideo.videoId).equals("READ");
+        viewHolder.readSticker.setVisibility(read ? View.VISIBLE : View.INVISIBLE);
         Picasso.with(mContext)
                 .load(mVideo.thumbnailUrl)
                 .error(R.mipmap.ic_launcher)
@@ -75,11 +77,13 @@ public class VideoBuilder extends Builder {
         ImageView thumbnailIV;
         TextView titleTV;
         TextView minuteTV;
+        View readSticker;
 
         public ViewHolder(View v) {
             thumbnailIV = (ImageView) v.findViewById(R.id.iv_thumbnail);
             titleTV = (TextView) v.findViewById(R.id.tv_title);
             minuteTV = (TextView) v.findViewById(R.id.tv_minute);
+            readSticker = v.findViewById(R.id.view_read);
         }
     }
 
