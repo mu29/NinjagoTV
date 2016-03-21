@@ -141,7 +141,7 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainPres
     // 바 광고 세팅
     private void initBarAd() {
         adView.setAdCache(true);
-        adView.setAnimationType(AdView.AnimationType.FLIP_HORIZONTAL);
+        adView.setAnimationType(AdView.AnimationType.NONE);
         adView.setVisibility(View.VISIBLE);
     }
 
