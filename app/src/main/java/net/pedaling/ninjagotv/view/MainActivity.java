@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.youtube.player.YouTubeApiServiceUtil;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubeStandalonePlayer;
 
@@ -114,8 +115,10 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainPres
         if (intent == null)
             return;
 
-        if (!canResolveIntent(intent))
+        if (!canResolveIntent(intent) || !YouTubeApiServiceUtil.isYouTubeApiServiceAvailable(getApplicationContext()).equals(YouTubeInitializationResult.SUCCESS)) {
             YouTubeInitializationResult.SERVICE_MISSING.getErrorDialog(this, REQ_RESOLVE_SERVICE_MISSING).show();
+            return;
+        }
 
         startActivityForResult(intent, REQ_START_STANDALONE_PLAYER);
     }
@@ -136,6 +139,11 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainPres
                 openVideoActivity(mVideoId);
             }
         });
+    }
+
+    @Override
+    public void postDelayed(Runnable runnable, int delay) {
+        videoLV.postDelayed(runnable, delay);
     }
 
     // 바 광고 세팅
