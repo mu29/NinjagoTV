@@ -18,7 +18,7 @@ import retrofit2.http.GET;
  */
 public class RestClient {
 
-    public static String BASE_URL = "http://10.0.1.93:9293";
+    public static String BASE_URL = "http://1.255.51.166:8000";
     private static NinjaGoService ninjagoService;
 
     public static void createService() {

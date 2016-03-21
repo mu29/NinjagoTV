@@ -9,8 +9,8 @@ import android.util.TypedValue;
 public class NinjaGoUtils {
 
     // DEBUG : AIzaSyCIrjD6QDva3V-RNfRJ7mwSGgcpuNDK7nU
-    // PRODUCTION : AIzaSyAbrZZnYA3eo1qH9XLfhhsquLtzYc7gN18
-    public static final String YOUTUBE_KEY = "AIzaSyCIrjD6QDva3V-RNfRJ7mwSGgcpuNDK7nU";
+    // PRODUCTION : AIzaSyBg6bvz3co156Xt11NM9Lcd1zhpGTOuUKo
+    public static final String YOUTUBE_KEY = "AIzaSyBg6bvz3co156Xt11NM9Lcd1zhpGTOuUKo";
     public static final String FULL_AD_KEY = "DAN-sondxxeo5nj8";
 
     public static float getDP(Context context, float value) {

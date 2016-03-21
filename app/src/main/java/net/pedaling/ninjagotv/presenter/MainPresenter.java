@@ -30,7 +30,13 @@ public class MainPresenter extends MvpPresenter<MainPresenter.MainView> {
             @Override
             public void onFailure(Call<List<Video>> call, Throwable t) {
                 mView.hideProgressView();
-                mView.displayError("인터넷 연결을 확인해주세요.");
+                mView.displayError("인터넷 연결을 확인해주세요. 재시도합니다!");
+                mView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadVideos();
+                    }
+                }, 1000);
             }
         });
     }
@@ -61,6 +67,7 @@ public class MainPresenter extends MvpPresenter<MainPresenter.MainView> {
         void displayVideos(List<Video> videos);
         void displayError(String message);
         void openFullAd(String videoId);
+        void postDelayed(Runnable runnable, int delay);
     }
 
 }
