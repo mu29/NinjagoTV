@@ -15,14 +15,14 @@ public class Video implements Parcelable, Adaptable {
 
     public int id;
     public String title;
-    public String url;
+    public String videoId;
     public String minute;
     public String thumbnailUrl;
 
-    public Video(int id, String title, String url, String minute, String thumbnailUrl) {
+    public Video(int id, String title, String videoId, String minute, String thumbnailUrl) {
         this.id = id;
         this.title = title;
-        this.url = url;
+        this.videoId = videoId;
         this.minute = minute;
         this.thumbnailUrl = thumbnailUrl;
     }
@@ -40,7 +40,7 @@ public class Video implements Parcelable, Adaptable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(title);
-        dest.writeString(url);
+        dest.writeString(videoId);
         dest.writeString(minute);
         dest.writeString(thumbnailUrl);
     }
@@ -48,7 +48,7 @@ public class Video implements Parcelable, Adaptable {
     private void readFromParcel(Parcel src) {
         id = src.readInt();
         title = src.readString();
-        url = src.readString();
+        videoId = src.readString();
         minute = src.readString();
         thumbnailUrl = src.readString();
     }
