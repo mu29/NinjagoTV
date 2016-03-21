@@ -6,6 +6,8 @@ import android.os.Parcelable;
 import android.view.View;
 import android.view.ViewGroup;
 
+import net.pedaling.ninjagotv.view.builder.VideoBuilder;
+
 /**
  * Created by InJung on 2016. 3. 21..
  */
@@ -53,7 +55,7 @@ public class Video implements Parcelable, Adaptable {
 
     @Override
     public View buildView(Context context, View convertView, ViewGroup parent, Object... params) {
-        return null;
+        return VideoBuilder.set(context, convertView, parent, params).buildView();
     }
 
     public static final Parcelable.Creator<Video> CREATOR = new Parcelable.Creator<Video>(){

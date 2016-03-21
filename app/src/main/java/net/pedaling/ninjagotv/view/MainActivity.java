@@ -1,6 +1,9 @@
 package net.pedaling.ninjagotv.view;
 
+import android.content.Intent;
 import android.widget.ListView;
+
+import com.google.android.youtube.player.YouTubeStandalonePlayer;
 
 import net.pedaling.ninjagotv.MvpActivity;
 import net.pedaling.ninjagotv.R;
@@ -25,12 +28,24 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainPres
 
     @AfterViews
     protected void setView() {
-        DefaultAdapter<Video> adapter = new DefaultAdapter<>();
+        DefaultAdapter<Video> adapter = new DefaultAdapter<>(mPresenter.getVideoItemListener());
         List<Video> videoList = new ArrayList<>();
+        videoList.add(new Video(1, "레고® 닌자고 1화 스네이크군단의 부활", "9WHv9Nf9WAA", "21:50", ""));
+        videoList.add(new Video(1, "레고® 닌자고 1화 스네이크군단의 부활", "9WHv9Nf9WAA", "21:50", ""));
+        videoList.add(new Video(1, "레고® 닌자고 1화 스네이크군단의 부활", "9WHv9Nf9WAA", "21:50", ""));
+        videoList.add(new Video(1, "레고® 닌자고 1화 스네이크군단의 부활", "9WHv9Nf9WAA", "21:50", ""));
         videoList.add(new Video(1, "레고® 닌자고 1화 스네이크군단의 부활", "9WHv9Nf9WAA", "21:50", ""));
         adapter.addAll(videoList);
 
         videoLV.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void openVideoActivity(String key, String url) {
+        Intent intent = YouTubeStandalonePlayer.createVideoIntent(
+                this, key, url, 0, true, false);
+        startActivity(intent);
     }
 
     @Override
