@@ -60,7 +60,7 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainPres
     public void openVideoActivity(String key, String url) {
         Intent intent = YouTubeStandalonePlayer.createVideoIntent(
                 this, key, url, 0, true, false);
-        startActivity(intent);
+        startActivityForResult(intent);
     }
 
     @Override

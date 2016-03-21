@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import net.pedaling.ninjagotv.data.model.Adaptable;
+import net.pedaling.ninjagotv.util.NinjaGoUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,8 +56,15 @@ public class DefaultAdapter<I extends Adaptable> extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         Context context = parent.getContext();
         Adaptable item = mItems.get(position);
+        View view = item.buildView(context, convertView, parent, item, mListener);
+        int p = (int) NinjaGoUtils.getDP(context, 8);
 
-        return item.buildView(context, convertView, parent, item, mListener);
+        if (position == 0)
+            view.setPadding(p, p * 2, p, p);
+        else
+            view.setPadding(p, p, p, p);
+
+        return view;
     }
 
 }
