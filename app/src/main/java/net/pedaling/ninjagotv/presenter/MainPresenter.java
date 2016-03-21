@@ -44,7 +44,7 @@ public class MainPresenter extends MvpPresenter<MainPresenter.MainView> {
             switch (actionId) {
                 case ACTION_OPEN_VIDEO:
                     Video video = (Video) params[0];
-                    mView.openVideoActivity("AIzaSyAj-se5kZ7n5100yAa6Wzj-9Q0EfH_pZkk", video.videoId);
+                    mView.openFullAd(video.videoId);
                     break;
             }
         }
@@ -60,7 +60,7 @@ public class MainPresenter extends MvpPresenter<MainPresenter.MainView> {
         void hideProgressView();
         void displayVideos(List<Video> videos);
         void displayError(String message);
-        void openVideoActivity(String key, String url);
+        void openFullAd(String videoId);
     }
 
 }

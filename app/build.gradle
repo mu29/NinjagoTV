@@ -35,6 +35,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.2.1'
     compile 'com.android.support:design:23.2.1'
+    // ad
+    compile 'com.google.android.gms:play-services-ads:+'
     // Picasso
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'jp.wasabeef:picasso-transformations:1.0.5'
@@ -46,4 +48,5 @@ dependencies {
     compile 'org.androidannotations:androidannotations-api:4.0-SNAPSHOT'
     // Youtube
     compile files('libs/YouTubeAndroidPlayerApi.jar')
+    compile files('libs/AdfitPublisherSDK-2.3.7.jar')
 }

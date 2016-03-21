@@ -1,7 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="net.pedaling.ninjagotv">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +12,8 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:label="메인"
+            android:label="닌자고"
+            android:configChanges="orientation|keyboardHidden"
             android:name=".view.MainActivity_">
             <intent-filter >
                 <action android:name="android.intent.action.MAIN" />
@@ -19,6 +21,14 @@
             </intent-filter>
         </activity>
 
-    </application>
+        <!-- Interstitial 광고를 사용하기 위해서는 반드시 이 부분을 추가해야한다. -->
+        <activity
+            android:name="net.daum.adam.publisher.impl.AdInterstitialActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait" />
 
+
+        <meta-data android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+    </application>
 </manifest>
