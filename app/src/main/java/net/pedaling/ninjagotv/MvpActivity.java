@@ -2,6 +2,7 @@ package net.pedaling.ninjagotv;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 /**
  * Created by InJung on 2016. 3. 21..
@@ -30,8 +31,8 @@ public abstract class MvpActivity<P extends MvpPresenter> extends AppCompatActiv
         return mPresenter;
     }
 
-//    public View getCoordinatorView() {
-//        return findViewById(R.id.content_wrapper);
-//    }
+    public View getCoordinatorView() {
+        return findViewById(R.id.content_wrapper);
+    }
 
 }
