@@ -61,6 +61,8 @@ public class DefaultAdapter<I extends Adaptable> extends BaseAdapter {
 
         if (position == 0)
             view.setPadding(p, p * 2, p, p);
+        else if (position == mItems.size() - 1)
+            view.setPadding(p, p, p, p * 2);
         else
             view.setPadding(p, p, p, p);
 
