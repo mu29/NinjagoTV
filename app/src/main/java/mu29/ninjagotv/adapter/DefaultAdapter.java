@@ -1,12 +1,12 @@
-package net.pedaling.ninjagotv.adapter;
+package mu29.ninjagotv.adapter;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import net.pedaling.ninjagotv.data.model.Adaptable;
-import net.pedaling.ninjagotv.util.NinjaGoUtils;
+import mu29.ninjagotv.data.model.Adaptable;
+import mu29.ninjagotv.util.NinjaGoUtils;
 
 import java.util.ArrayList;
 import java.util.List;

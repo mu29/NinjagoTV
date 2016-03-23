@@ -1,4 +1,4 @@
-package net.pedaling.ninjagotv.adapter;
+package mu29.ninjagotv.adapter;
 
 /**
  * Created by InJung on 2016. 3. 21..

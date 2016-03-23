@@ -1,10 +1,10 @@
-package net.pedaling.ninjagotv.presenter;
+package mu29.ninjagotv.presenter;
 
-import net.pedaling.ninjagotv.MvpPresenter;
-import net.pedaling.ninjagotv.MvpView;
-import net.pedaling.ninjagotv.adapter.DefaultListener;
-import net.pedaling.ninjagotv.data.model.Video;
-import net.pedaling.ninjagotv.data.remote.RestClient;
+import mu29.ninjagotv.MvpPresenter;
+import mu29.ninjagotv.MvpView;
+import mu29.ninjagotv.adapter.DefaultListener;
+import mu29.ninjagotv.data.model.Video;
+import mu29.ninjagotv.data.remote.RestClient;
 
 import java.util.List;
 
@@ -29,8 +29,9 @@ public class MainPresenter extends MvpPresenter<MainPresenter.MainView> {
 
             @Override
             public void onFailure(Call<List<Video>> call, Throwable t) {
+                t.printStackTrace();
                 mView.hideProgressView();
-                mView.displayError("인터넷 연결을 확인해주세요. 재시도합니다!");
+                mView.displayError("서버 접속이 원활하지 않습니다. 재시도합니다!");
                 mView.postDelayed(new Runnable() {
                     @Override
                     public void run() {

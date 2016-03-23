@@ -1,4 +1,4 @@
-package net.pedaling.ninjagotv.view.builder;
+package mu29.ninjagotv.view.builder;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,11 +9,11 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
-import net.pedaling.ninjagotv.data.local.PreferenceHelper;
-import net.pedaling.ninjagotv.util.CircleTransform;
-import net.pedaling.ninjagotv.R;
-import net.pedaling.ninjagotv.data.model.Video;
-import net.pedaling.ninjagotv.presenter.MainPresenter;
+import mu29.ninjagotv.data.local.PreferenceHelper;
+import mu29.ninjagotv.util.CircleTransform;
+import mu29.ninjagotv.R;
+import mu29.ninjagotv.data.model.Video;
+import mu29.ninjagotv.presenter.MainPresenter;
 
 /**
  * Created by InJung on 2016. 3. 21..

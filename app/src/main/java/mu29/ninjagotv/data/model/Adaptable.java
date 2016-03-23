@@ -1,4 +1,4 @@
-package net.pedaling.ninjagotv.data.model;
+package mu29.ninjagotv.data.model;
 
 import android.content.Context;
 import android.view.View;

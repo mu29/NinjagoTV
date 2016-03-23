@@ -1,4 +1,4 @@
-package net.pedaling.ninjagotv.data.local;
+package mu29.ninjagotv.data.local;
 
 import android.content.Context;
 import android.content.SharedPreferences;

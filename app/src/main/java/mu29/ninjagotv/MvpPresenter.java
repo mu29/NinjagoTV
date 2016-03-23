@@ -1,4 +1,4 @@
-package net.pedaling.ninjagotv;
+package mu29.ninjagotv;
 
 /**
  * Created by InJung on 2016. 3. 21..
@@ -17,7 +17,7 @@ public class MvpPresenter<V extends MvpView> {
     }
 
     public void detachView() {
-        mView = null;
+        //mView = null;
     }
 
     protected void afterAttach() {

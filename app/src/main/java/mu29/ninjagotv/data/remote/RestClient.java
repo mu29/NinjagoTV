@@ -1,10 +1,10 @@
-package net.pedaling.ninjagotv.data.remote;
+package mu29.ninjagotv.data.remote;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import net.pedaling.ninjagotv.data.model.Video;
+import mu29.ninjagotv.data.model.Video;
 
 import java.util.List;
 

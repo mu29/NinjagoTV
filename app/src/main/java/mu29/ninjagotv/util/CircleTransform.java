@@ -1,4 +1,4 @@
-package net.pedaling.ninjagotv.util;
+package mu29.ninjagotv.util;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;

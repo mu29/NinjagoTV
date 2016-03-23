@@ -1,4 +1,4 @@
-package net.pedaling.ninjagotv.view.builder;
+package mu29.ninjagotv.view.builder;
 
 import android.content.Context;
 import android.view.View;

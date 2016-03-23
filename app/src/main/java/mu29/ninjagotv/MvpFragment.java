@@ -1,4 +1,4 @@
-package net.pedaling.ninjagotv;
+package mu29.ninjagotv;
 
 import android.support.v4.app.Fragment;
 

@@ -1,4 +1,4 @@
-package net.pedaling.ninjagotv.data.model;
+package mu29.ninjagotv.data.model;
 
 import android.content.Context;
 import android.os.Parcel;
@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import android.view.View;
 import android.view.ViewGroup;
 
-import net.pedaling.ninjagotv.view.builder.VideoBuilder;
+import mu29.ninjagotv.view.builder.VideoBuilder;
 
 /**
  * Created by InJung on 2016. 3. 21..
