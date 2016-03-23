@@ -1,8 +1,10 @@
-package net.pedaling.ninjagotv;
+package mu29.ninjagotv;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import mu29.ninjagotv.R;
 
 /**
  * Created by InJung on 2016. 3. 21..
