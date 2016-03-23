@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">NinjagoTV</string>
+
+    <string name="daum_bar_ad">DAN-1h7wjen9ef0wx</string>
+    <string name="daum_full_ad">DAN-s101mex41wdy</string>
+
+    <string name="google_bar_ad">ca-app-pub-6988311040138762/9923543330</string>
+    <string name="google_full_ad">ca-app-pub-6988311040138762/8446810131</string>
 </resources>

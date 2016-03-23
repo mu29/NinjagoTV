@@ -1,4 +1,4 @@
-package net.pedaling.ninjagotv.view;
+package mu29.ninjagotv.view;
 
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.youtube.player.YouTubeApiServiceUtil;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubeStandalonePlayer;
@@ -15,13 +18,13 @@ import com.google.android.youtube.player.YouTubeStandalonePlayer;
 import net.daum.adam.publisher.AdInterstitial;
 import net.daum.adam.publisher.AdView;
 import net.daum.adam.publisher.impl.AdError;
-import net.pedaling.ninjagotv.MvpActivity;
-import net.pedaling.ninjagotv.R;
-import net.pedaling.ninjagotv.adapter.DefaultAdapter;
-import net.pedaling.ninjagotv.data.local.PreferenceHelper;
-import net.pedaling.ninjagotv.data.model.Video;
-import net.pedaling.ninjagotv.presenter.MainPresenter;
-import net.pedaling.ninjagotv.util.NinjaGoUtils;
+import mu29.ninjagotv.MvpActivity;
+import mu29.ninjagotv.R;
+import mu29.ninjagotv.adapter.DefaultAdapter;
+import mu29.ninjagotv.data.local.PreferenceHelper;
+import mu29.ninjagotv.data.model.Video;
+import mu29.ninjagotv.presenter.MainPresenter;
+import mu29.ninjagotv.util.NinjaGoUtils;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
@@ -40,10 +43,12 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainPres
 
     private DefaultAdapter<Video> mAdapter;
     private static String mVideoId;
-    private AdInterstitial mFullAd;
+    private AdInterstitial mDaumFullAd;
+    private InterstitialAd mGoogleFullAd;
     @ViewById(R.id.view_progress) View progressView;
     @ViewById(R.id.lv_videos) ListView videoLV;
-    @ViewById(R.id.view_ad) AdView adView;
+    @ViewById(R.id.ad_bar_daum) AdView daumAdBar;
+    @ViewById(R.id.ad_bar_google) com.google.android.gms.ads.AdView googleAdBar;
 
     @AfterViews
     protected void setView() {
@@ -75,7 +80,7 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainPres
     @Override
     public void openFullAd(String videoId) {
         mVideoId = videoId;
-        mFullAd.loadAd();
+        mDaumFullAd.loadAd();
     }
 
     @Override
@@ -88,6 +93,9 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainPres
             PreferenceHelper.getInstance(getApplicationContext()).setString(mVideoId, "READ");
             mAdapter.notifyDataSetChanged();
         }
+
+        mVideoId = "";
+        mDaumFullAd.loadAd();
     }
 
     private boolean canResolveIntent(Intent intent) {
@@ -123,22 +131,73 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainPres
         startActivityForResult(intent, REQ_START_STANDALONE_PLAYER);
     }
 
+    // 바 광고 세팅
+    private void initBarAd() {
+        daumAdBar.setAnimationType(AdView.AnimationType.NONE);
+        daumAdBar.setOnAdLoadedListener(new AdView.OnAdLoadedListener() {
+            @Override
+            public void OnAdLoaded() {
+                daumAdBar.setVisibility(View.VISIBLE);
+                googleAdBar.setVisibility(View.GONE);
+            }
+        });
+
+        daumAdBar.setOnAdFailedListener(new AdView.OnAdFailedListener() {
+            @Override
+            public void OnAdFailed(AdError adError, String s) {
+                daumAdBar.setVisibility(View.GONE);
+                AdRequest adRequest = new AdRequest.Builder().build();
+                googleAdBar.loadAd(adRequest);
+                googleAdBar.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
     // 전면 광고 세팅
     private void initFullAd() {
-        mFullAd = new AdInterstitial(this);
-        mFullAd.setClientId(NinjaGoUtils.FULL_AD_KEY);
-        mFullAd.setOnAdFailedListener(new AdView.OnAdFailedListener() {
+        mDaumFullAd = new AdInterstitial(this);
+        mDaumFullAd.setClientId(NinjaGoUtils.FULL_AD_KEY);
+        mGoogleFullAd = new InterstitialAd(this);
+        mGoogleFullAd.setAdUnitId(getResources().getString(R.string.google_full_ad));
+        requestGoogleFullAd();
+
+        mDaumFullAd.setOnAdFailedListener(new AdView.OnAdFailedListener() {
             @Override
             public void OnAdFailed(AdError error, String errorMessage) {
-                openVideoActivity(mVideoId);
+                if (mGoogleFullAd.isLoaded()) {
+                    mGoogleFullAd.show();
+                } else {
+                    if (!mVideoId.isEmpty())
+                        openVideoActivity(mVideoId);
+                }
             }
         });
-        mFullAd.setOnAdClosedListener (new AdView.OnAdClosedListener() {
+
+        mDaumFullAd.setOnAdClosedListener (new AdView.OnAdClosedListener() {
             @Override
             public void OnAdClosed() {
-                openVideoActivity(mVideoId);
+                if (!mVideoId.isEmpty())
+                    openVideoActivity(mVideoId);
             }
         });
+
+        mGoogleFullAd.setAdListener(new AdListener() {
+            @Override
+            public void onAdClosed() {
+                requestGoogleFullAd();
+                if (!mVideoId.isEmpty())
+                    openVideoActivity(mVideoId);
+            }
+        });
+
+    }
+
+    private void requestGoogleFullAd() {
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+
+        mGoogleFullAd.loadAd(adRequest);
     }
 
     @Override
@@ -146,20 +205,13 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainPres
         videoLV.postDelayed(runnable, delay);
     }
 
-    // 바 광고 세팅
-    private void initBarAd() {
-        adView.setAdCache(true);
-        adView.setAnimationType(AdView.AnimationType.NONE);
-        adView.setVisibility(View.VISIBLE);
-    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
 
-        if (adView != null) {
-            adView.destroy();
-            adView = null;
+        if (daumAdBar != null) {
+            daumAdBar.destroy();
+            daumAdBar = null;
         }
     }
 

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="net.pedaling.ninjagotv">
+    package="mu29.ninjagotv">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -21,12 +21,16 @@
             </intent-filter>
         </activity>
 
-        <!-- Interstitial 광고를 사용하기 위해서는 반드시 이 부분을 추가해야한다. -->
+        <!-- 다음 전면 광고 -->
         <activity
             android:name="net.daum.adam.publisher.impl.AdInterstitialActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
 
+        <!-- 구글 전면 광고 -->
+        <activity android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" />
 
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
