@@ -43,11 +43,9 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainPres
 
     private DefaultAdapter<Video> mAdapter;
     private static String mVideoId;
-    private AdInterstitial mDaumFullAd;
     private InterstitialAd mGoogleFullAd;
     @ViewById(R.id.view_progress) View progressView;
     @ViewById(R.id.lv_videos) ListView videoLV;
-    @ViewById(R.id.ad_bar_daum) AdView daumAdBar;
     @ViewById(R.id.ad_bar_google) com.google.android.gms.ads.AdView googleAdBar;
 
     @AfterViews
@@ -80,7 +78,12 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainPres
     @Override
     public void openFullAd(String videoId) {
         mVideoId = videoId;
-        mDaumFullAd.loadAd();
+        if (mGoogleFullAd.isLoaded()) {
+            mGoogleFullAd.show();
+        } else {
+            if (!mVideoId.isEmpty())
+                openVideoActivity(mVideoId);
+        }
     }
 
     @Override
@@ -95,7 +98,7 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainPres
         }
 
         mVideoId = "";
-        mDaumFullAd.loadAd();
+        mGoogleFullAd.show();
     }
 
     private boolean canResolveIntent(Intent intent) {
@@ -133,53 +136,16 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainPres
 
     // 바 광고 세팅
     private void initBarAd() {
-        daumAdBar.setAnimationType(AdView.AnimationType.NONE);
-        daumAdBar.setOnAdLoadedListener(new AdView.OnAdLoadedListener() {
-            @Override
-            public void OnAdLoaded() {
-                daumAdBar.setVisibility(View.VISIBLE);
-                googleAdBar.setVisibility(View.GONE);
-            }
-        });
-
-        daumAdBar.setOnAdFailedListener(new AdView.OnAdFailedListener() {
-            @Override
-            public void OnAdFailed(AdError adError, String s) {
-                daumAdBar.setVisibility(View.GONE);
-                AdRequest adRequest = new AdRequest.Builder().build();
-                googleAdBar.loadAd(adRequest);
-                googleAdBar.setVisibility(View.VISIBLE);
-            }
-        });
+        AdRequest adRequest = new AdRequest.Builder().build();
+        googleAdBar.loadAd(adRequest);
+        googleAdBar.setVisibility(View.VISIBLE);
     }
 
     // 전면 광고 세팅
     private void initFullAd() {
-        mDaumFullAd = new AdInterstitial(this);
-        mDaumFullAd.setClientId(NinjaGoUtils.FULL_AD_KEY);
         mGoogleFullAd = new InterstitialAd(this);
         mGoogleFullAd.setAdUnitId(getResources().getString(R.string.google_full_ad));
         requestGoogleFullAd();
-
-        mDaumFullAd.setOnAdFailedListener(new AdView.OnAdFailedListener() {
-            @Override
-            public void OnAdFailed(AdError error, String errorMessage) {
-                if (mGoogleFullAd.isLoaded()) {
-                    mGoogleFullAd.show();
-                } else {
-                    if (!mVideoId.isEmpty())
-                        openVideoActivity(mVideoId);
-                }
-            }
-        });
-
-        mDaumFullAd.setOnAdClosedListener (new AdView.OnAdClosedListener() {
-            @Override
-            public void OnAdClosed() {
-                if (!mVideoId.isEmpty())
-                    openVideoActivity(mVideoId);
-            }
-        });
 
         mGoogleFullAd.setAdListener(new AdListener() {
             @Override
@@ -208,11 +174,6 @@ public class MainActivity extends MvpActivity<MainPresenter> implements MainPres
     @Override
     public void onDestroy() {
         super.onDestroy();
-
-        if (daumAdBar != null) {
-            daumAdBar.destroy();
-            daumAdBar = null;
-        }
     }
 
 }

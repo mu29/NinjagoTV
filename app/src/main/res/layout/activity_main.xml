@@ -75,18 +75,11 @@
             <com.google.android.gms.ads.AdView
                 android:id="@+id/ad_bar_google"
                 android:visibility="visible"
+                android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 ads:adSize="BANNER"
                 ads:adUnitId="@string/google_bar_ad" />
-
-            <net.daum.adam.publisher.AdView
-                android:id="@+id/ad_bar_daum"
-                android:visibility="visible"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                clientId="DAN-1h7wjen9ef0wx"
-                requestInterval="15"/>
         </FrameLayout>
     </LinearLayout>
 </android.support.design.widget.CoordinatorLayout>
